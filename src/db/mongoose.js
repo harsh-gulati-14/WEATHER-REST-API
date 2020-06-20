@@ -20,6 +20,18 @@ const users=mongoose.model('users',{
             }
         }
     },
+    password:{
+        type:String,
+        required:true,
+        trim:true,
+        minlength:7,
+        validate(value){
+            if(value.toLowerCase().includes('password'))
+            {
+               throw new Error('Passwrod cant conatin the string password') 
+            }
+        }
+    },
     age:{
         type:Number,
         validate(value){
@@ -32,28 +44,31 @@ const users=mongoose.model('users',{
 })
 const tasks=mongoose.model('tasks',{
     description:{
-        type:String
+        type:String,
+        required:true,
+        trim:true
     },
     complete:{
-        type:Boolean 
+        type:Boolean,
+        default:false
     }
 })
-const me=new users({
-    name:'GULATI',
-    email:"hash"
-})
-me.save().then((me)=>
-{
-    console.log(me)  // this is the way to sav the update happening in the db and this also return a prmise which can be used in place of callback function
-}).catch((error)=>{
-    //console.log("error")
-})
-// const task=new tasks({
-//     description:'COMPETETIVE CODING',
-//     complete:false
+// const me=new users({
+//     name:'GULATI',
+//     email:"hashgulati1409@gmail.com",
+//     password:"harshgula12@"
 // })
-// task.save().then((task)=>{
-//     console.log(task)
+// me.save().then((me)=>
+// {
+//     console.log(me)  // this is the way to sav the update happening in the db and this also return a prmise which can be used in place of callback function
 // }).catch((error)=>{
-//     console.log('error')
+//     console.log("error",error)
 // })
+const task=new tasks({
+    description:'COMPETETIVE CODING1                   '
+})
+task.save().then((task)=>{
+    console.log(task)
+}).catch((error)=>{
+    console.log('error',error)
+})
