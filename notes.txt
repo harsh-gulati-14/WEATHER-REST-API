@@ -1,0 +1,10 @@
+SO now what we have done 
+1. we have our folder src 
+    - in which we have a build a new folder MODELS
+        - which will contain all the mongoose model of our app that is task and user
+    - we have build a index,js file 
+        - which will act like  the main file to build a post request from POSTMAN and serve it to the ROBO 3T 
+2. mongodb.js is just for practice
+3. mongoose.js will connect with index.js and serve the models
+4. we have used express framework
+
