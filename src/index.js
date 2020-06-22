@@ -2,12 +2,18 @@ const express = require('express')
 require('./db/mongoose')
 const User = require('./models/user')
 const Task = require('./models/task')
+const users = require('./models/user')
 const app = express()
 
 const port = process.env.PORT || 3000
 
 app.use(express.json())
-
+app.get('/users',(req,res)=>{
+    users.find({}).then((users)=>{
+        res.send(users)
+    }).catch((err)=>{
+    })
+})
 app.post('/users', (req, res) => {
 
     const user = new User(req.body)
@@ -29,7 +35,7 @@ app.post('/tasks',(req,res)=>{
         res.status(201).send(task)
 
     }).catch((err)=>{
-        
+
         res.status(400).send(err)
     })
 })
