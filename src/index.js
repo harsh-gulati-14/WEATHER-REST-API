@@ -62,6 +62,19 @@ app.patch('/users/:id', async (req, res) => {
         res.status(500).send()
     }
 })
+//delete
+app.delete('/users/:id',async(req,res)=>{
+    try{
+        const user=await Users.findByIdAndDelete(req.params.id)
+        if(!user)
+        {
+            return res.status(404).send()
+        }
+        res.send(user)
+    }catch(e){
+        res.status(500).send()
+    }
+})
 // ------------------------------------------ TASK ROUTES________________________________________________________
 app.get('/tasks', async (req, res) => {
     try {
@@ -112,6 +125,18 @@ app.patch('/task/:id',async(req,res)=>{
         res.status(500).send()
     }
 
+})
+app.delete('/tasks/:id',async(req,res)=>{
+    try{
+        const task=await Task.findByIdAndDelete(req.params.id)
+        if(!task)
+        {
+            return res.status(404).send()
+        }
+        res.send(task)
+    }catch(e){
+        res.status(500).send()
+    }
 })
 app.listen(port, () => {
 
