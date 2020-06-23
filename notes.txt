@@ -7,4 +7,6 @@ SO now what we have done
 2. mongodb.js is just for practice
 3. mongoose.js will connect with index.js and serve the models
 4. we have used express framework
-
+5. we have  made playground dir in the taskmanager folder in hich we have practiced about the async functionand now 
+    will be integrating that async function in the index.js
+    if you want to visit the previous version go to github and see the commits history
