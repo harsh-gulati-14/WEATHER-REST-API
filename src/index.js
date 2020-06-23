@@ -40,6 +40,8 @@ app.post('/users', async (req, res) => {
         res.status(400).send(e)
     }
 })
+app.patch('/')
+// ------------------------------------------ TASK ROUTES________________________________________________________
 app.get('/tasks', async(req, res) => {
     try{
         const task=await Task.find({})
