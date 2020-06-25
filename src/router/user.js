@@ -1,6 +1,7 @@
 const express=require('express')
 const router=new express.Router()
 const Users = require('../models/user')
+const { update } = require('../models/user')
 router.get('/users', async (req, res) => {
 
     try {
@@ -39,14 +40,22 @@ router.post('/users', async (req, res) => {
 // that is the reson I have placed a array of string ehich contains the parameters that can be updated only
 router.patch('/users/:id', async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowed = ['name', 'email', 'passowrd', 'age']
+    const allowed = ['name', 'email', 'password', 'age']
     const isvalid = updates.every((updates) => allowed.includes(updates))
     if (!isvalid) {
         return res.status(404).send({ error: 'INVALID UPDATES' })
     }
+    // now see here we are going to do some changes
+    // becuase while updatng any field we want it to get access from the middleware where it will be check
     try {
         const _id = req.params.id
-        const user = await Users.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+        // previous one w/o middleware
+      //  const user = await Users.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
+      // new one with middleware
+        const user=await Users.findById(_id)
+        updates.forEach((update)=>user[update]=req.body[update])
+        await user.save()
+        // what we are actaully doing here is that we are finding the users by id and then for each in update we are upating the field that is provided in body of update path
         if (!user) {
             return res.status(404).send()
         }
