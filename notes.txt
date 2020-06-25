@@ -12,3 +12,9 @@ SO now what we have done
     if you want to visit the previous version go to github and see the commits history
 6. now a new thing we have done is that we have made router folder in which all the router will be present that were
     in the index.js and from there we will access from the router folder
+7. now here we have made some chnages in user.js model and applied the middleware technique of mongoose and set up
+    our own schema . we have done this to basically  use the pre save feature in which we want to hash the password
+    and also we have done changes in update pathc in user.js router here the previous code was directly connected with db
+    so to tackle itwe have use the JS function atribute and save the user 
+    while saving the user it will go through the model (user.js ) first and if password was changed so it will 
+    easliy hash it
