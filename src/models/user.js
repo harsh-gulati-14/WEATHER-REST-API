@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 const validator=require('validator')
 const bcrypt=require("bcryptjs")
+const jwt=require('jsonwebtoken')
 // spo as mongoose just do is that set up the schema before saving
 // so here we just make our own schema
 // to access the middleware that will be used to save pre or post
@@ -42,8 +43,25 @@ const userschema=new mongoose.Schema({
                 throw new Error('AGE MUST BE POSITIVE NUMBER')
             }
         }
-    }
+    },
+    tokens:[{
+        token:{
+            type:String,
+            required:true // this is the new object we ahve made which will concat all the new token genarted in this array
+        } 
+    }]
 })
+userschema.methods.genauthtoken=async function(){
+    // generating a new token while logina nd signin 
+    const user=this
+    // strcuture of this line is simply that we will create a token with a random id and 
+    // just give a secret value eg in this case "harshgulati"" and genarte a new token value
+    // sand just return the token
+    const token =jwt.sign({_id:user._id.toString()},"harshgulati")
+    user.tokens=user.tokens.concat({token}) // method to make a new token from above in schema(upper)
+    await user.save() // save the token to that user from router user.js where we got that request to make a new tokne
+    return token // to display on POSTMAN not neccessary
+}
 userschema.statics.findbycred=async(email,password)=>{
     const user=await users.findOne({email}) 
     if(!user)

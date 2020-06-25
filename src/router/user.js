@@ -28,7 +28,9 @@ router.post('/users/login',async(req,res)=>{
     try{
         // this is our own where we are going to make a new method
         const user=await Users.findbycred(req.body.email,req.body.password)
-        res.send(user)
+        // ok so here we made a new  method in model user.js where we will be generating a token for login and sign up using jwt
+        const token= await user.genauthtoken()
+        res.send({user,token})
     }catch(e){
         res.status(400).send()
     }
@@ -38,7 +40,9 @@ router.post('/users', async (req, res) => {
     const user = new Users(req.body)
     try {
         await user.save()
-        res.status(201).send(user)
+        // generating a token when signing or creating a new user and login
+        const token=await user.genauthtoken()
+        res.status(201).send({user,token}) // saving that token
     } catch (e) {
         res.status(400).send(e)
     }

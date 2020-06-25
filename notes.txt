@@ -22,3 +22,11 @@ SO now what we have done
      so basically we will be checking with th email and then with password in the user.js router
      and also a new type of method findbycred in the models user.js where we will verify the useremail and password
      using hash
+9. now we have to decide that what should be public and privated basically means that what are the request that can user access 
+    before login and after login so we will use the jsonwebtoken framework whihc generate a token for us to athenticate between diffreent request
+    we will genarating new token while logiing in and signing in.
+    these token will allow us to edit our data only and not another and these token are genrated from model user.js where we have made a new 
+    method to genarate token
+    also we have edited the schema of the mongoose basically and add a new onject of name token array which will conatin all the token genarated when login or signin
+    genauthtoken() is the function method made in the mdoel user.js and here we ahave made a new token for the user that was provide
+    in the user.js router call
