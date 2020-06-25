@@ -34,3 +34,4 @@ SO now what we have done
     we will crea5rtte a new fodler name middlware that will be responsible fo rcreating a new auth.jswhich
     is responsible for cheking that we are requsting for the user exist or not
     the middleware work that before printing the response
+    
