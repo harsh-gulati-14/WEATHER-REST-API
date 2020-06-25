@@ -2,14 +2,11 @@ const express=require('express')
 const router=new express.Router()
 const Users = require('../models/user')
 const { update } = require('../models/user')
-router.get('/users', async (req, res) => {
-
-    try {
-        const user = await Users.find({})
-        res.status(200).send(user)
-    } catch (e) {
-        res.status(500).send(user)
-    }
+const auth=require('../middleware/auth')
+// ok so we have edited the get user code and added a new route /me 
+// this basicaly means we are going to chaek for authorisation if done then we will display th edata of requested user in authorisation function
+router.get('/users/me',auth,async (req, res) => {
+    res.send(req.user)
 })
 router.get('/users/:id', async (req, res) => {
 

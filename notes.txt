@@ -30,3 +30,7 @@ SO now what we have done
     also we have edited the schema of the mongoose basically and add a new onject of name token array which will conatin all the token genarated when login or signin
     genauthtoken() is the function method made in the mdoel user.js and here we ahave made a new token for the user that was provide
     in the user.js router call
+10 . now we have set up the user models and token object n that model no we will proceed to the authentication thing
+    we will crea5rtte a new fodler name middlware that will be responsible fo rcreating a new auth.jswhich
+    is responsible for cheking that we are requsting for the user exist or not
+    the middleware work that before printing the response
