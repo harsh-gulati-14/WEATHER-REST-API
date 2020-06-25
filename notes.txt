@@ -18,3 +18,5 @@ SO now what we have done
     so to tackle itwe have use the JS function atribute and save the user 
     while saving the user it will go through the model (user.js ) first and if password was changed so it will 
     easliy hash it
+8. so here we have made a new routr that is for the login purpose and send the users in it 
+     so basically we will be checking with th email and then with password in the user.js router

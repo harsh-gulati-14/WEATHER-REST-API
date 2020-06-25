@@ -24,6 +24,15 @@ router.get('/users/:id', async (req, res) => {
         res.status(500).send()
     }
 })
+router.post('/users/login',async(req,res)=>{
+    try{
+        // this is our own where we are going to make a new method
+        const user=await Users.findbycred(req.body.email,req.body.password)
+        res.send(user)
+    }catch(e){
+        res.status(400).send()
+    }
+})
 router.post('/users', async (req, res) => {
 
     const user = new Users(req.body)

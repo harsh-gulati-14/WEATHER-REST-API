@@ -11,6 +11,9 @@ const userschema=new mongoose.Schema({
     },
     email:{
         type:String,
+        unique:true,
+        trim:true,
+        lowercase:true, 
         required:true,
         validate(value) // this is the validoator p[ackage of npm used here
         {
@@ -41,9 +44,22 @@ const userschema=new mongoose.Schema({
         }
     }
 })
+userschema.statics.findbycred=async(email,password)=>{
+    const user=await users.findOne({email}) 
+    if(!user)
+    {
+        throw new Error('UNABLE TO LOGIN')
+    }
+    const ismatch=await bcrypt.compare(password,user.password)
+    if(!ismatch)
+    {
+        throw new Error('UNABLE TO LOGIN ') 
+    }
+    return user
+}
 // this is to do some changes before saving the nput in the db
 // next here refers that we are done with our code 
-// we can't use arrow function here because of it doesn't provide that features
+// we can't use arrow function here because  of it doesn't provide that features
 userschema.pre('save',async function(next){
     const user=this
     if(user.isModified('password'))
