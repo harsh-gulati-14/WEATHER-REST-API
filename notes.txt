@@ -20,3 +20,5 @@ SO now what we have done
     easliy hash it
 8. so here we have made a new routr that is for the login purpose and send the users in it 
      so basically we will be checking with th email and then with password in the user.js router
+     and also a new type of method findbycred in the models user.js where we will verify the useremail and password
+     using hash
