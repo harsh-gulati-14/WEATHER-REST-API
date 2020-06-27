@@ -8,19 +8,19 @@ const auth=require('../middleware/auth')
 router.get('/users/me',auth,async (req, res) => {
     res.send(req.user)
 })
-router.get('/users/:id', async (req, res) => {
+// router.get('/users/:id', async (req, res) => {
 
-    const _id = req.params.id // inbuild function of mongoose to get the id of paramtere  that is convert to id(hexa string)
-    try {
-        const user = await Users.findById(_id)
-        if (!user) {
-            return res.status(404).send()
-        }
-        res.send(user)
-    } catch (e) {
-        res.status(500).send()
-    }
-})
+//     const _id = req.params.id // inbuild function of mongoose to get the id of paramtere  that is convert to id(hexa string)
+//     try {
+//         const user = await Users.findById(_id)
+//         if (!user) {
+//             return res.status(404).send()
+//         }
+//         res.send(user)
+//     } catch (e) { // NO NEEDPOF THOIS ROUTER
+//         res.status(500).send()
+//     }
+// })
 router.post('/users/login',async(req,res)=>{
     try{
         // this is our own where we are going to make a new method
@@ -95,14 +95,16 @@ router.patch('/users/:id', async (req, res) => {
     }
 })
 //delete
-router.delete('/users/:id',async(req,res)=>{
+router.delete('/users/me',auth,async(req,res)=>{
     try{
-        const user=await Users.findByIdAndDelete(req.params.id)
-        if(!user)
-        {
-            return res.status(404).send()
-        }
-        res.send(user)
+        // const user=await Users.findByIdAndDelete(req.user._id)
+        // if(!user)
+        // { // so here we have made changes as we doesnot need the delete from id anymore so we just remove 
+        //     return res.status(404).send()
+        // }
+        // we authentciated it using auth.js and we are recieving that user data and we just remove it form DB
+        await req.user.remove()
+        res.send(req.user)
     }catch(e){
         res.status(500).send()
     }
