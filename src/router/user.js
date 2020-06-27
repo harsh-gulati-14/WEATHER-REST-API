@@ -68,7 +68,7 @@ router.post('/users', async (req, res) => {
 // so the important part over here is basicallyy hwhat we want to updates and is it valid or not
 // if it is not valid then return
 // that is the reson I have placed a array of string ehich contains the parameters that can be updated only
-router.patch('/users/:id', async (req, res) => {
+router.patch('/users/me',auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowed = ['name', 'email', 'password', 'age']
     const isvalid = updates.every((updates) => allowed.includes(updates))
@@ -78,18 +78,14 @@ router.patch('/users/:id', async (req, res) => {
     // now see here we are going to do some changes
     // becuase while updatng any field we want it to get access from the middleware where it will be check
     try {
-        const _id = req.params.id
-        // previous one w/o middleware
-      //  const user = await Users.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
-      // new one with middleware
-        const user=await Users.findById(_id)
+        // const _id = req.params.id
+        const user=await req.user
         updates.forEach((update)=>user[update]=req.body[update])
         await user.save()
-        // what we are actaully doing here is that we are finding the users by id and then for each in update we are upating the field that is provided in body of update path
-        if (!user) {
-            return res.status(404).send()
-        }
-        res.send(user)
+        // if (!user) {
+        //     return res.status(404).send()
+        // }
+        res.send(user) 
     } catch (e) {
         res.status(500).send()
     }
