@@ -75,7 +75,7 @@ userschema.statics.findbycred=async(email,password)=>{
     }
     return user
 }
-userschema.methods.getpublicprofile= function(){
+userschema.methods.toJSON= function(){
     const user=this
     const userobj=user.toObject()
     delete userobj.password
