@@ -47,3 +47,34 @@ SO now what we have done
     that's why we used it
 15 OK so now we have to change the endpoints also as we only want the login user to update and delete the user
     so we ahve made changes in both the router by setting up the auth.js in them
+16 hm till now we have integrate all of them with the login and the users now we will integrate the users with there task only
+    1. we changed the task model and add upa new object named owner and add up the few things in it
+     owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'users'
+    }
+    this type is from mongoose and ref means that which model we are accessing and we type here the sam ename we wrote in the 
+     // module.exports time
+     2. after this we move to the task rouetr and integrate the auth.js in it
+     in this we did like if any user will craete a new task a new object naem suerid thate use id (form the db)
+     will also add to that JSON object
+     3. when we will call the get request it will be helpful for us to use it and to differeitiate between the users tasks
+     4. whiole reading all task of a single user we call the populate function that is usefull only when reading fromm the 
+     uer mdoel (virtual) now hat is this virtual we setup a new method in user model about a virtual that will not reflect any database
+     but it will connect one model that is tasks model with the user model via owner id 
+     userschema.virtual('tasks',{
+        ref:'tasks',
+        localField:'_id', /like this
+        foreignField:'owner'
+    })
+    5. in the get call form  the tasks we call a new way 
+            await req.user.populate('tasks').execPopulate()
+        res.send(req.user.tasks) and this will send all the task of the user (logged one only)
+17 till now we have successfully made changes in get and post request and now we are going to make changes in the 
+    upodate and delete also so in yupdate and delete we will add a line
+    const task =await Task.findOne({_id :req.params.id,owner:req.user._id})
+    this will fetch the task of that user with the help of its own id and its owner id and after that
+    we can easliywork through it
+18 one change we have done that we also add one more middleware in the user mdoel about the remove a users task after removing the user
+    in user model

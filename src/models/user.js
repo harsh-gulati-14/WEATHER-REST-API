@@ -2,6 +2,7 @@ const mongoose=require('mongoose')
 const validator=require('validator')
 const bcrypt=require("bcryptjs")
 const jwt=require('jsonwebtoken')
+const Task = require('../models/task')
 // spo as mongoose just do is that set up the schema before saving
 // so here we just make our own schema
 // to access the middleware that will be used to save pre or post
@@ -51,6 +52,11 @@ const userschema=new mongoose.Schema({
         } 
     }]
 })
+userschema.virtual('tasks',{
+    ref:'tasks',
+    localField:'_id',
+    foreignField:'owner'
+})
 userschema.methods.genauthtoken=async function(){
     // generating a new token while logina nd signin 
     const user=this
@@ -91,6 +97,11 @@ userschema.pre('save',async function(next){
     {
         user.password=await bcrypt.hash(user.password,8)
     }
+    next()
+})
+userschema.pre('remove',async function(next){
+    const user=this
+    await Task.deleteMany({owner:user._id})
     next()
 })
 const users=mongoose.model('users',userschema)

@@ -9,6 +9,11 @@ const tasks=mongoose.model('tasks',{
     complete:{
         type:Boolean,
         default:false
+    },
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'users'
     }
 })
 module.exports=tasks
