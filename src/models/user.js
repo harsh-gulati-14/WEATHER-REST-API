@@ -75,6 +75,13 @@ userschema.statics.findbycred=async(email,password)=>{
     }
     return user
 }
+userschema.methods.getpublicprofile= function(){
+    const user=this
+    const userobj=user.toObject()
+    delete userobj.password
+    delete userobj.tokens
+    return userobj
+}
 // this is to do some changes before saving the nput in the db
 // next here refers that we are done with our code 
 // we can't use arrow function here because  of it doesn't provide that features
