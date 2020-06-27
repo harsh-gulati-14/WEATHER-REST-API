@@ -45,3 +45,5 @@ SO now what we have done
     so we made this function and deleted the required object
 14 and we just renamed the grtpublicprogile to (toJSON) and it also don't need to get called
     that's why we used it
+15 OK so now we have to change the endpoints also as we only want the login user to update and delete the user
+    so we ahve made changes in both the router by setting up the auth.js in them
