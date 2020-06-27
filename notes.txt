@@ -39,3 +39,9 @@ SO now what we have done
     pm.environment.set('authtoken',pm.response.json().token) 
     }
     in the test script of login user changes updtaed and set the suthoristaion to br inherit from parent
+12 . made 2 router logout and logoutall and set up that to return the toknen and delete the token value from token array
+13 and after that the main thing we updated was getpublicprofile() in user model so that in poTSMAN during
+    sending te response we dnot get the whole password hash and tokens array
+    so we made this function and deleted the required object
+14 and we just renamed the grtpublicprogile to (toJSON) and it also don't need to get called
+    that's why we used it
