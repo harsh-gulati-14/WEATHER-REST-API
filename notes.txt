@@ -35,3 +35,7 @@ SO now what we have done
     is responsible for cheking that we are requsting for the user exist or not
     the middleware work that before printing the response
 11. POTSMAN have been made automated in the login procedurre and suceefuuly aceesing the tokens
+    if(pm.response.code===200){
+    pm.environment.set('authtoken',pm.response.json().token) 
+    }
+    in the test script of login user changes updtaed and set the suthoristaion to br inherit from parent
