@@ -49,8 +49,11 @@ const userschema=new mongoose.Schema({
         token:{
             type:String,
             required:true // this is the new object we ahve made which will concat all the new token genarted in this array
-        } 
+        }
     }]
+},
+    {
+        timestamps:true 
 })
 userschema.virtual('tasks',{
     ref:'tasks',

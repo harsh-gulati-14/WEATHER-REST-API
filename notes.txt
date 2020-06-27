@@ -78,3 +78,5 @@ SO now what we have done
     we can easliywork through it
 18 one change we have done that we also add one more middleware in the user mdoel about the remove a users task after removing the user
     in user model
+19 -------------------------------------------------------------------------------------------------------------
+20 okk now stopping over here 
